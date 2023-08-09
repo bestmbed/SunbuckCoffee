@@ -58,7 +58,7 @@ export default class ProductOption extends BaseModel {
       return {'product_type' : product_type}
     }))
     
-    const mergedArray = product.map((item : string, index : number) => {return Object.assign(product[index], type[index])});
+    const mergedArray = product.map((item : string, index : number) => {return Object.assign(product[index], type[index])}); // merged two object in to array
 
 for(let result of [mergedArray]){
       for(let i = 0; i< result.length; i++){
@@ -92,7 +92,6 @@ for(let result of [mergedArray]){
     let results : Partial<resultOfOrder> ={}
     const type = this.checkType(product_orders.product_type)
     let attributes_option: Array<number> = []
-
 
     const price = await Product.query().select(`${type}`).where('product_name',`${product_orders.product_name}`)
     const [product_pay] = price

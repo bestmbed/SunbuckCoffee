@@ -33,8 +33,6 @@ export default class LogOrder extends BaseModel {
 
 public async allSummaryOrder(){
   const createDate: string = moment().format('YYYY-MM-DD')
-  console.log(createDate);
-  
   const all_data = await LogOrder.query().select().whereBetween('created_at', [`${createDate}T00:00:00Z`, `${createDate}T23:59:59Z`])
   console.log(all_data);
   return all_data
@@ -49,8 +47,7 @@ public async allSummaryOrderAndPrice(){
   const product_name = [...Object.values(ProduceName)]
 
   for(let i=0; i<product_name.length; i++ ){
-    // console.log(product_name[i].$attributes.product_name);
-    
+
     const allResult  = await Database.rawQuery(
     "SELECT product_name , sum(product_amount) as sum_amount , sum(total_price) as sum_price , NOW() as created_at "
     +"FROM sunbuck_db.log_orders "
@@ -91,9 +88,6 @@ public async allSummaryOption(){
       });
       
     }
-
-    // console.log(mergedArray.sort((a, b) => a.value - b.value));
-
 
   return  mergedArray.sort((a, b) => b.value - a.value)
 }
